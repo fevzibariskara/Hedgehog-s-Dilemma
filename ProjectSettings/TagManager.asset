@@ -5,16 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Penalty
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - Arena
   - Water
   - UI
-  - Arena
+  - Penalty
+  - Player
   - Ball
-  - 
   - 
   - 
   - 
