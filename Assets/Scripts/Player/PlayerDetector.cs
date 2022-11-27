@@ -25,7 +25,7 @@ public class PlayerDetector : MonoBehaviour
 
         if (collision.transform.tag == "Enemy")
         {
-            scoreText.text = (int)_scoreAmount + "Score";
+            scoreText.text = (int)_scoreAmount + " Oxytocin";
             _scoreAmount += _scoreIncreasedPerSecond * Time.deltaTime;
         }
     }
