@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.UIElements;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerDetector : MonoBehaviour
 {
-    public Text scoreText;
 
     [SerializeField] private float _scoreAmount, _scoreIncreasedPerSecond;
-
+    [SerializeField] TextMeshProUGUI scoreText, highScoreText;
     private void Start()
     {
-        _scoreAmount = 0;
+        _scoreAmount = 0;;
+        UpdateHighScoreText();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -25,8 +27,10 @@ public class PlayerDetector : MonoBehaviour
 
         if (collision.transform.tag == "Enemy")
         {
-            scoreText.text = (int)_scoreAmount + " Oxytocin";
+            scoreText.text = "Oxytocin: " + (int)_scoreAmount;
             _scoreAmount += _scoreIncreasedPerSecond * Time.deltaTime;
+
+            CheckHighScore();
         }
     }
     
@@ -37,6 +41,20 @@ public class PlayerDetector : MonoBehaviour
             PlayerManager.isGameOver = true;
             gameObject.SetActive(false);
         }
+    }
+
+    void CheckHighScore()
+    {
+        if (_scoreAmount > PlayerPrefs.GetFloat("Highest Oxytocin Score", 0))
+        {
+            PlayerPrefs.SetFloat("Highest Oxytocin Score", _scoreAmount);
+            
+        }
+    }
+
+    void UpdateHighScoreText()
+    {
+        highScoreText.text = $"Highest Oxytocin Score: {PlayerPrefs.GetFloat("Highest Oxytocin Score", 0)}";
     }
 
 }
